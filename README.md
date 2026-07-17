@@ -51,3 +51,9 @@ maestro test flows/s3-suite-shopdemo/CT-001-login.yaml
 
 ---
 *Desenvolvido para fins de demonstração de competências em Automação Mobile e Qualidade de Software.*
+
+## 👤 Autor
+
+**Rafael Felipe**  
+QA Engineer  
+[LinkedIn](https://www.linkedin.com/in/rafaelrfelipe/)

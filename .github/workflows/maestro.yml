@@ -42,10 +42,12 @@ jobs:
           profile: pixel_6
           disk-size: 8192M
           heap-size: 1024M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot -no-metrics
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-snapshot -no-metrics
           disable-animations: true
           script: |
             adb wait-for-device
+            # Aguardar o boot completo do Android
+            adb shell "while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done"
             adb install ShopDemo.apk
             mkdir -p reports
             maestro test --format junit --output reports/resultado.xml flows/s3-suite-shopdemo/
