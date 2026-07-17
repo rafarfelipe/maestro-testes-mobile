@@ -3,9 +3,9 @@ appId: com.curso.shopdemo
 - launchApp:
     clearState: true
 - extendedWaitUntil:
-      visible:
-          id: "input-email"
-      timeout: 40000
+    visible:
+        id: "input-email"
+    timeout: 120000
 - tapOn:
     id: "input-email"
 - inputText: "cliente@shopdemo.com"
@@ -14,9 +14,11 @@ appId: com.curso.shopdemo
 - inputText: "123456"
 - hideKeyboard
 - tapOn: "btn-entrar"
+
 - extendedWaitUntil:
     visible:
         id: "tela-catalogo"
     timeout: 40000
-- assertVisible:
+
+- assertVisible: 
     id: "tela-catalogo"

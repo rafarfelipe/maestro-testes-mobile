@@ -11,7 +11,7 @@ appId: com.curso.shopdemo
 - assertVisible: "R$ 1.899,90"
 - tapOn:
     id: "btn-voltar"
-- assertVisible:
+- assertVisible: 
     id: "tela-catalogo"
 - assertNotVisible: "Mochila para Notebook"
 - scrollUntilVisible: 
