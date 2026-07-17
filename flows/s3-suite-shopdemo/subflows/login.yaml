@@ -7,17 +7,22 @@ env:
       visible:
           id: "input-email"
       timeout: 40000
+- retry:
+      maxRetries: 2
+      commands:
+          - assertVisible:
+                id: "input-email"
 - tapOn:
-    id: "input-email"
+      id: "input-email"
 - inputText: ${EMAIL}
 - tapOn:
-    id: "input-senha"
+      id: "input-senha"
 - inputText: ${SENHA}
 - hideKeyboard
 - tapOn: "btn-entrar"
 - extendedWaitUntil:
-    visible:
-        id: "tela-catalogo"
-    timeout: 40000
+      visible:
+          id: "tela-catalogo"
+      timeout: 40000
 - assertVisible:
-    id: "tela-catalogo"
+      id: "tela-catalogo"
