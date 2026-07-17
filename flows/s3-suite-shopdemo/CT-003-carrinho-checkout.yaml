@@ -1,34 +1,34 @@
 appId: com.curso.shopdemo
 ---
 - launchApp:
-    clearState: true
+      clearState: true
 - runFlow: subflows/login.yaml
 - tapOn: "Fone de Ouvido Bluetooth"
 - tapOn:
-    id: "btn-adicionar"
+      id: "btn-adicionar"
 - assertVisible: "Produto adicionado com sucesso!"
 - tapOn:
-    id: "btn-ver-carrinho"
+      id: "btn-ver-carrinho"
 - assertVisible: "R$ 159,90"
 - assertVisible: "Total: R$ 159,90"
 - assertVisible:
-    id: "btn-finalizar"
-    enabled: true
+      id: "btn-finalizar"
+      enabled: true
 - tapOn:
-    id: "btn-finalizar"
+      id: "btn-finalizar"
 - tapOn:
-    id: "input-nome"
+      id: "input-nome"
 - inputText: "Rafael Felipe"
 - tapOn:
-    id: "input-endereco"
-- inputText: "Rua xxxxxyyyyy"
+      id: "input-endereco"
+- inputText: "Rua xxxyyyy"
 - tapOn:
-    id: "input-cartao"
+      id: "input-cartao"
 - inputText: "123-456-789"
 - hideKeyboard
 - tapOn:
-    id: "btn-confirmar"
+      id: "btn-confirmar"
 - assertVisible: "Pedido confirmado"
 - assertVisible:
-    id: "confirmacao-numero"
+      id: "confirmacao-numero"
 - assertVisible: "Pedido #.*"
