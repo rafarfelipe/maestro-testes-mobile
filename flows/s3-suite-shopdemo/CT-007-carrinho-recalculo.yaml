@@ -1,0 +1,74 @@
+appId: com.curso.shopdemo
+env:
+    PRODUTO_A: ${PRODUTO_A || "Smartphone Pro 128GB"}
+    PRODUTO_B: ${PRODUTO_B || "Fone de Ouvido Bluetooth"}
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/login.yaml
+
+# Adicionar o primeiro produto (Smartphone, id=1) pela tela de detalhe
+- scrollUntilVisible:
+    element: ${PRODUTO_A}
+- tapOn: ${PRODUTO_A}
+- assertVisible:
+    id: "tela-detalhe"
+- tapOn:
+    id: "btn-adicionar"
+- assertVisible: "Produto adicionado com sucesso!"
+- tapOn:
+    id: "btn-ver-carrinho"
+
+# Estado inicial: 1x Smartphone = R$ 1.899,90
+# (obs: "X no carrinho" so existe na tela de Detalhe; no Carrinho a quantidade
+#  aparece como numero solto. A prova de quantidade fica por carrinho-total e badge.)
+- assertVisible:
+    id: "carrinho-total"
+- assertVisible: "Total: R$ 1.899,90"
+
+# Incrementar o Smartphone no carrinho -> 2x = R$ 3.799,80
+- tapOn:
+    id: "btn-incrementar-1"
+- assertVisible: "Total: R$ 3.799,80"
+
+# Voltar ao catalogo: Carrinho -> Detalhe (goBack) -> Catalogo (goBack)
+- tapOn:
+    id: "btn-voltar-carrinho"
+- tapOn:
+    id: "btn-voltar"
+- extendedWaitUntil:
+    visible:
+      id: "tela-catalogo"
+    timeout: 15000
+- scrollUntilVisible:
+    element: ${PRODUTO_B}
+    direction: UP
+- tapOn: ${PRODUTO_B}
+- assertVisible:
+    id: "tela-detalhe"
+- tapOn:
+    id: "btn-adicionar"
+- assertVisible: "Produto adicionado com sucesso!"
+- tapOn:
+    id: "btn-ver-carrinho"
+
+# Total agora: 2x 1899,90 + 1x 159,90 = R$ 3.959,70
+- assertVisible: "Total: R$ 3.959,70"
+
+# Decrementar o Smartphone -> 1x = R$ 2.059,80
+- tapOn:
+    id: "btn-decrementar-1"
+- assertVisible: "Total: R$ 2.059,80"
+
+# Remover o Fone (id=2) -> sobra 1x Smartphone = R$ 1.899,90
+- tapOn:
+    id: "btn-remover-2"
+- assertVisible: "Produto removido com sucesso!"
+- assertVisible: "Total: R$ 1.899,90"
+
+# Remover o Smartphone restante -> carrinho vazio
+- tapOn:
+    id: "btn-remover-1"
+- assertVisible:
+    id: "carrinho-vazio"
+- assertVisible: "Total: R$ 0,00"

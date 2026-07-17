@@ -34,6 +34,22 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
+      - name: Baixar APK da GitHub Release "apk"
+        # O binario nao e versionado no git (ver .gitignore). Ele deve estar
+        # publicado como asset da Release "apk" neste repo.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p apk
+          ASSET_URL=$(gh api repos/${{ github.repository }}/releases/tags/apk \
+            --jq '.assets[] | select(.name=="ShopDemo.apk") | .url')
+          if [ -z "$ASSET_URL" ]; then
+            echo "::error::APK nao encontrado na Release 'apk'. Faca o upload de ShopDemo.apk como asset da Release 'apk'."
+            exit 1
+          fi
+          gh api "$ASSET_URL" --header "Accept: application/octet-stream" > apk/ShopDemo.apk
+          ls -la apk/ShopDemo.apk
+
       - name: Subir emulador e rodar suite
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -48,7 +64,7 @@ jobs:
             adb wait-for-device
             # Aguardar o boot completo do Android
             adb shell "while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done"
-            adb install ShopDemo.apk
+            adb install apk/ShopDemo.apk
             mkdir -p reports
             maestro test --format junit --output reports/resultado.xml flows/s3-suite-shopdemo/
 
@@ -64,10 +80,10 @@ jobs:
         if: always()
         with:
           name: screenshots-maestro
-          path: .maestro/screenshots/
+          path: .maestro/screenshots/**/*.png
 
       - name: Exibir resultado no Actions
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         if: always()
         with:
           name: Maestro Suite

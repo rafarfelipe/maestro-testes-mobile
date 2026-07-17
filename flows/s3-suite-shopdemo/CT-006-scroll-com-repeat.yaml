@@ -4,14 +4,10 @@ appId: com.curso.shopdemo
     clearState: true
 - runFlow: subflows/login.yaml
 
-# Scroll ate encontrar a Mochila para Notebook (repeat + while)
-- repeat:
-    times: 10
-    while:
-      notVisible:
-        text: "Mochila para Notebook"
-    commands:
-      - scroll
+# Scroll ate encontrar a Mochila para Notebook (scrollUntilVisible eh mais
+# robusto que repeat+scroll, que pode travar/duplicar em listas FlatList)
+- scrollUntilVisible:
+    element: "Mochila para Notebook"
 
 - assertVisible: "Mochila para Notebook"
 - tapOn: "Mochila para Notebook"

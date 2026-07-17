@@ -25,8 +25,10 @@ O objetivo deste projeto é validar fluxos críticos de uma aplicação de e-com
 | `CT-002-catalogo` | Navegação e validação de produtos no catálogo. |
 | `CT-003-carrinho` | Adição de produtos e fluxo de checkout. |
 | `CT-004-e2e-compra`| Cenário completo de ponta a ponta. |
-| `CT-005-logica` | Teste com lógica condicional. |
-| `CT-006-scroll` | Validação de elementos via *scroll* e repetição. |
+| `CT-005-logica` | Teste com lógica condicional (login resiliente + estado de carrinho). |
+| `CT-006-scroll` | Validação de elementos via *scroll* (`scrollUntilVisible`). |
+| `CT-007-carrinho-recalculo` | Incrementar/decrementar/remover itens e recálculo do total. |
+| `CT-008-login-senha-invalida` | Cenário negativo: credenciais inválidas não navegam. |
 
 ## ⚙️ Tecnologias Utilizadas
 
@@ -48,6 +50,21 @@ maestro test flows/s3-suite-shopdemo/
 # Executar um fluxo específico
 maestro test flows/s3-suite-shopdemo/CT-001-login.yaml
 ```
+
+## ⚙️ CI no GitHub Actions
+
+A suíte roda automaticamente em cada `push`/`pull_request` na branch `main` (`.github/workflows/maestro.yml`), subindo um emulador Pixel 6 (API 34) e executando os fluxos com Maestro. O resultado é publicado como *check* via test-reporter e os artefacts (XML + screenshots) ficam disponíveis na run.
+
+### Provisionando o APK na CI
+O binário `ShopDemo.apk` **não é versionado** no git (ver `.gitignore`). A CI baixa o APK da *GitHub Release* denominada **`apk`** deste repositório. Para publicá-lo:
+
+```bash
+# Crie a Release (tag "apk") e anexe o binário uma única vez
+gh release create apk ShopDemo.apk --title "APK de teste" --notes "Build usado pela CI"
+```
+
+Sem esse asset, o job da CI falha com a mensagem:
+`APK nao encontrado na Release 'apk'.`
 
 ---
 *Desenvolvido para fins de demonstração de competências em Automação Mobile e Qualidade de Software.*

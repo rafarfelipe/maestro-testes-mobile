@@ -41,3 +41,9 @@ shopdemo/ios/
 
 # Variaveis de ambiente
 .env
+
+# Binario do app (baixado como artifact/release, nao versionado)
+ShopDemo.apk
+
+# Screenshots de execucao do Maestro
+.maestro/screenshots/
