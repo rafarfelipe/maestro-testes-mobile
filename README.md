@@ -1,4 +1,4 @@
-# Curso Maestro — Testes Mobile
+# Maestro — Testes Mobile
 
 Repositório do app **ShopDemo** utilizado no curso de testes mobile com Maestro.
 
