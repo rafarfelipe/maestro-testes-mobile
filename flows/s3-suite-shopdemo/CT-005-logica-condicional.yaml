@@ -2,10 +2,11 @@ appId: com.curso.shopdemo
 ---
 - launchApp:
     clearState: true
+- waitSeconds: 5
 - extendedWaitUntil:
     visible:
       id: "input-email"
-    timeout: 120000
+    timeout: 240000
 
 - tapOn:
     id: "input-email"

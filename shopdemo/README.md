@@ -13,7 +13,7 @@ de produto, carrinho, checkout e confirmacao de pedido.
 
 ## Credenciais de teste
 
-- E-mail: cliente@shopdemo.com
+- E-mail:  
 - Senha: 123456
 
 ## Rodar em desenvolvimento
