@@ -2,7 +2,7 @@
 
 [![Maestro](https://img.shields.io/badge/Maestro-Framework-blue)](https://maestro.mobile.dev/)
 [![Android](https://img.shields.io/badge/Platform-Android-green)]()
-[![CI/CD](https://img.shields.io/badge/CI-GitHub%20Actions-orange)]()
+[![Maestro Suite](https://github.com/rafarfelipe/maestro-testes-mobile/actions/workflows/maestro.yml/badge.svg)](https://github.com/rafarfelipe/maestro-testes-mobile/actions/workflows/maestro.yml)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Este projeto demonstra a automação de testes *end-to-end* (E2E) para o aplicativo **ShopDemo**, utilizando o **Maestro**, um framework moderno e de alta performance para automação mobile.
