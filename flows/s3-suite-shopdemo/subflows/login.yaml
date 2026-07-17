@@ -10,8 +10,12 @@ env:
     commands:
       - extendedWaitUntil:
           visible:
-            id: "input-email"
+            id: "tela-login"
           timeout: 240000
+      - extendedWaitUntil:
+          visible:
+            id: "input-email"
+          timeout: 60000
       - tapOn:
           id: "input-email"
       - inputText: ${EMAIL}
