@@ -1,0 +1,18 @@
+appId: com.curso.shopdemo
+env:
+    EMAIL: cliente@shopdemo.com
+    SENHA: "123456"
+    PRODUTO_CATALOGO: Smartphone Pro 128GB
+    PRECO_CATALOGO: "R$ 1.899,90"
+    PRODUTO_CARRINHO: Fone de Ouvido Bluetooth
+    PRECO_PRODUTO: "R$ 159,90"
+    TOTAL_CARRINHO: "R$ 159,90"
+    NOME: Rafael Felipe
+    ENDERECO: Rua Canada, 185
+    CARTAO: "4111-1111-1111-1111"
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows\login.yaml
+- runFlow: subflows\catalogo.yaml
+- runFlow: subflows\carrinho-checkout.yaml
