@@ -2,7 +2,6 @@ appId: com.curso.shopdemo
 ---
 - launchApp:
     clearState: true
-- pause: 5000
 - extendedWaitUntil:
     visible:
       id: "input-email"
