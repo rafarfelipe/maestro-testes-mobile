@@ -67,17 +67,18 @@ jobs:
           profile: pixel_6
           disk-size: 8192M
           heap-size: 1024M
-          emulator-options: -no-window -gpu swiftshader -noaudio -no-snapshot -no-metrics -delay-adb
+          emulator-options: -no-window -gpu off -noaudio -no-snapshot -no-metrics -delay-adb
           disable-animations: true
           # O android-emulator-runner so executa este script APOS o boot completo,
           # entao nao ha necessidade de loop de wait. Comandos devem ser linhas
           # simples (o runner nao tolera blocos for/if multi-linha no script: |).
-          # -gpu swiftshader (sem _indirect) e -delay-adb reduzem glitches de
-          # renderizacao (ColorBuffer) que causavam falsos negativos na CI.
-          # --continue-on-failure garante que todos os CTs rodem mesmo se um falha.
+          # -gpu off usa framebuffer em memoria (sem OpenGL) e elimina os glitches
+          # de renderizacao "Failed to find ColorBuffer" que causavam falsos
+          # negativos na CI. -delay-adb evita corrida na instalacao do APK.
           # Em caso de falha, a suíte e re-rodada uma vez (retry de flakiness).
           script: |
             export PATH="$PATH:$HOME/.maestro/bin"
+            export MAESTRO_CLI_NO_ANALYTICS=1
             command -v maestro >/dev/null 2>&1 || { echo "::error::maestro nao encontrado no PATH"; exit 1; }
             adb install -r apk/ShopDemo.apk
             mkdir -p reports
