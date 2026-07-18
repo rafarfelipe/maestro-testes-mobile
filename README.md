@@ -66,6 +66,23 @@ gh release create apk ShopDemo.apk --title "APK de teste" --notes "Build usado p
 Sem esse asset, o job da CI falha com a mensagem:
 `APK nao encontrado na Release 'apk'.`
 
+## 📊 Resumo dos Resultados
+
+Suíte executada localmente no emulador (`Pixel_9`): **8/8 PASS**.
+
+| CT | Fluxo | Resultado |
+| :--- | :--- | :--- |
+| `CT-001-login` | Login com sucesso | ✅ PASS |
+| `CT-002-catalogo` | Navegação e validação de produtos | ✅ PASS |
+| `CT-003-carrinho-checkout` | Adição de produto e checkout | ✅ PASS |
+| `CT-004-e2e-compra` | Cenário completo ponta a ponta | ✅ PASS |
+| `CT-005-logica-condicional` | Login resiliente + estado de carrinho | ✅ PASS |
+| `CT-006-scroll` | Validação via `scrollUntilVisible` | ✅ PASS |
+| `CT-007-carrinho-recalculo` | Incrementar/decrementar/remover + total | ✅ PASS |
+| `CT-008-login-senha-invalida` | Cenário negativo (credenciais inválidas) | ✅ PASS |
+
+A suíte também roda automaticamente na CI (GitHub Actions) a cada `push`/`pull_request` na `main`, com re-execução em caso de flakiness do emulador.
+
 ---
 *Desenvolvido para fins de demonstração de competências em Automação Mobile e Qualidade de Software.*
 
