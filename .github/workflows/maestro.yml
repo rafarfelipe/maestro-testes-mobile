@@ -39,17 +39,21 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Baixar APK da GitHub Release "apk"
+      - name: Baixar APK da GitHub Release
         # O binario nao e versionado no git (ver .gitignore). Ele deve estar
-        # publicado como asset da Release "apk" neste repo.
+        # publicado como asset "ShopDemo.apk" em QUALQUER Release deste repo.
+        # O nome/tag da release nao importa - o script procura o asset em todas.
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p apk
-          ASSET_URL=$(gh api repos/${{ github.repository }}/releases/tags/apk \
-            --jq '.assets[] | select(.name=="ShopDemo.apk") | .url')
+          ASSET_URL=$(gh api repos/${{ github.repository }}/releases \
+            --jq '.[] | .assets[] | select(.name=="ShopDemo.apk") | .url' | head -1)
           if [ -z "$ASSET_URL" ]; then
-            echo "::error::APK nao encontrado na Release 'apk'. Faca o upload de ShopDemo.apk como asset da Release 'apk'."
+            echo "::error::Asset 'ShopDemo.apk' nao encontrado em nenhuma Release deste repo."
+            echo "::error::Publique o ShopDemo.apk como asset de uma Release (tag qualquer)."
+            echo "::error::Releases disponiveis:"
+            gh api repos/${{ github.repository }}/releases --jq '.[].tag_name' || true
             exit 1
           fi
           gh api "$ASSET_URL" --header "Accept: application/octet-stream" > apk/ShopDemo.apk
